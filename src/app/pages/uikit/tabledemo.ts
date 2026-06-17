@@ -18,7 +18,7 @@ import { IconFieldModule } from 'primeng/iconfield';
 import { TagModule } from 'primeng/tag';
 import { Customer, CustomerService, Representative } from '@/app/pages/service/customer.service';
 import { Product, ProductService } from '@/app/pages/service/product.service';
-import {ObjectUtils} from "primeng/utils";
+import { ObjectUtils } from 'primeng/utils';
 
 interface expandedRows {
     [key: string]: boolean;
@@ -431,7 +431,6 @@ export class TableDemo implements OnInit {
             this.customers1 = customers;
             this.loading = false;
 
-            // @ts-ignore
             this.customers1.forEach((customer) => (customer.date = new Date(customer.date)));
         });
         this.customerService.getCustomersMedium().then((customers) => (this.customers2 = customers));
@@ -489,7 +488,7 @@ export class TableDemo implements OnInit {
     }
 
     expandAll() {
-        if(ObjectUtils.isEmpty(this.expandedRows)) {
+        if (ObjectUtils.isEmpty(this.expandedRows)) {
             this.expandedRows = this.products.reduce(
                 (acc, p) => {
                     if (p.id) {
@@ -501,9 +500,8 @@ export class TableDemo implements OnInit {
             );
             this.isExpanded = true;
         } else {
-            this.collapseAll()
+            this.collapseAll();
         }
-
     }
 
     collapseAll() {

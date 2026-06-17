@@ -32,20 +32,21 @@ export class AppMenu {
                 items: [
                     { label: 'Orders', icon: 'pi pi-fw pi-shopping-cart', routerLink: ['/orders'] },
                     { label: 'Products', icon: 'pi pi-fw pi-box', routerLink: ['/products'] },
-                    { label: 'Categories & Brands', icon: 'pi pi-fw pi-tags', routerLink: ['/categories'] }
+                    { label: 'Categories', icon: 'pi pi-fw pi-tags', routerLink: ['/categories'] },
+                    { label: 'Brands', icon: 'pi pi-fw pi-tag', routerLink: ['/brands'] }
                 ]
             },
             {
                 label: 'Marketing & Customers',
                 items: [
-                    { label: 'Customers', icon: 'pi pi-fw pi-users', routerLink: ['/users'] },
+                    { label: 'Customers', icon: 'pi pi-fw pi-users', routerLink: ['/customers'] },
                     { label: 'Coupons', icon: 'pi pi-fw pi-ticket', routerLink: ['/coupons'] }
                 ]
             },
             {
                 label: 'Settings',
                 items: [
-                    { label: 'Delivery Methods', icon: 'pi pi-fw pi-truck', routerLink: ['/delivery'] },
+                    { label: 'Delivery Zones', icon: 'pi pi-fw pi-truck', routerLink: ['/deliveryzones'] },
                     { label: 'System Settings', icon: 'pi pi-fw pi-cog', routerLink: ['/settings'] }
                 ]
             }

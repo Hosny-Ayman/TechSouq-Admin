@@ -92,11 +92,8 @@ export class Login implements OnInit {
             next: (req: any) => {
                 this.Logo = req.data.settingValue;
                 this._cdr.detectChanges();
-                console.log('Logo Get Sucessfully');
             },
-            error: (err: any) => {
-                console.log('Logo Get Faidled');
-            }
+            error: (err: any) => {}
         });
     }
 

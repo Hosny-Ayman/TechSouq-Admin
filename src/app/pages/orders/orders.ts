@@ -77,8 +77,6 @@ export class Orders implements OnInit {
 
         this._order.GetAllOrdersPaged(params).subscribe({
             next: (req: any) => {
-                console.log('Get orderPaged Sucessfully');
-
                 this.orders = req.data.data;
 
                 this.totalRecords = req.data.totalRecords;
@@ -87,7 +85,6 @@ export class Orders implements OnInit {
                 this._cdr.detectChanges();
             },
             error: (err: any) => {
-                console.log('Get orderPaged Failed');
                 this.loading = false;
                 this._cdr.detectChanges();
             }

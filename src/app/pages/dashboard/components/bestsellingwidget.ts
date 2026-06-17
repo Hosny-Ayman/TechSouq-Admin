@@ -22,9 +22,9 @@ import { DashboardService } from '@/app/core/core/services/dashboard.service';
                     </div>
                     <div class="mt-2 md:mt-0 flex items-center">
                         <div class="bg-surface-300 dark:bg-surface-500 rounded-border overflow-hidden w-40 lg:w-24" style="height: 8px">
-                            <div class="h-full" [class]="colors[$index % colors.length]" [style.width.%]="Product?.persntageOfSell ?? 0"></div>
+                            <div class="h-full" [class]="colors[$index % colors.length]" [style.width.%]="Product?.percentageOfSell ?? 0"></div>
                         </div>
-                        <span class="text-orange-500 ml-4 font-medium">{{ Product?.persntageOfSell ?? 0 }}%</span>
+                        <span class="text-orange-500 ml-4 font-medium">{{ Product?.percentageOfSell ?? 0 }}%</span>
                     </div>
                 </li>
             }
@@ -40,12 +40,9 @@ export class BestSellingWidget implements OnInit {
     ngOnInit(): void {
         this._dashboardService.BestSellingProducts().subscribe({
             next: (req: any) => {
-                console.log('BestSellingProducts get Successfully', req.data);
                 this.bestSellingProducts = req.data;
             },
-            error: (err: any) => {
-                console.log('BestSellingProducts get Failed', err);
-            }
+            error: (err: any) => {}
         });
     }
 }

@@ -33,13 +33,10 @@ export class RevenueStreamWidget implements OnInit {
     ngOnInit(): void {
         this._dashboardService.SalesLast7Days().subscribe({
             next: (req: any) => {
-                console.log('SalesLast7Days get Successfully', req.data);
                 this.salesLast7Days = req.data;
                 this.initChart();
             },
-            error: (err: any) => {
-                console.log('SalesLast7Days get Failed', err);
-            }
+            error: (err: any) => {}
         });
     }
 

@@ -82,12 +82,9 @@ export class StatsWidget implements OnInit {
     ngOnInit(): void {
         this._dashboardService.ShowDashboardInfo().subscribe({
             next: (req: any) => {
-                console.log('dashboard data get sucessfully');
                 this.DashboardInfo = req.data;
             },
-            error: (err: any) => {
-                console.log('dashboard data get Failed');
-            }
+            error: (err: any) => {}
         });
     }
 }

@@ -76,7 +76,6 @@ export class OrderDetails implements OnInit {
         this.updatingStatus = true;
         this._orderService.UpdateStatus(this.orderId, this.selectedStatus).subscribe({
             next: (res) => {
-                console.log('Status updated successfully');
                 this.orderDetails.status = orderStatus[this.selectedStatus!];
                 this.updatingStatus = false;
                 this._cdr.detectChanges();

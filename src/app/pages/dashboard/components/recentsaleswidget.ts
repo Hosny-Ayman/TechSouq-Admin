@@ -91,14 +91,12 @@ export class RecentSalesWidget {
 
         this._dashboardService.RecentSales(params).subscribe({
             next: (req: any) => {
-                console.log('RecentSales get sucessfully');
                 this.products = req.data.data;
                 this.totalRecords = req.data.totalRecords;
                 this.loading = false;
                 this._cdr.detectChanges();
             },
             error: (err: any) => {
-                console.log('RecentSales data get Failed');
                 this.loading = false;
                 this._cdr.detectChanges();
             }

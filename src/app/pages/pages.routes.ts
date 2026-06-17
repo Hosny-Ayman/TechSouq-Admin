@@ -9,9 +9,12 @@ export default [
 
     { path: 'orders', loadComponent: () => import('./orders/orders').then((c) => c.Orders) },
     { path: 'products', loadComponent: () => import('./products/products').then((c) => c.Products) },
-    { path: 'users', loadComponent: () => import('./users/users').then((c) => c.Users) },
+    { path: 'customers', loadComponent: () => import('./customers/customers').then((c) => c.Customers) },
     { path: 'coupons', loadComponent: () => import('./coupons/coupons').then((c) => c.Coupons) },
+    { path: 'categories', loadComponent: () => import('./categories/categories').then((c) => c.Categories) },
+    { path: 'brands', loadComponent: () => import('./brands/brands').then((c) => c.Brands) },
     { path: 'orderDetils/:id', loadComponent: () => import('./order-details/order-details').then((c) => c.OrderDetails) },
-
+    { path: 'deliveryzones', loadComponent: () => import('./delivery-zones/delivery-zones').then((c) => c.DeliveryZones) },
+    { path: 'settings', loadComponent: () => import('./system-settings/system-settings').then((c) => c.SystemSettings) },
     { path: '**', redirectTo: '/notfound' }
 ] as Routes;

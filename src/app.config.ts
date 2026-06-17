@@ -9,11 +9,28 @@ import { MessageService } from 'primeng/api';
 
 export const appConfig: ApplicationConfig = {
     providers: [
-        provideRouter(appRoutes, withInMemoryScrolling({ anchorScrolling: 'enabled', scrollPositionRestoration: 'enabled' }), withEnabledBlockingInitialNavigation()),
-        provideHttpClient(withFetch()),
+        provideRouter(
+            appRoutes,
+            withInMemoryScrolling({
+                anchorScrolling: 'enabled',
+                scrollPositionRestoration: 'enabled'
+            }),
+            withEnabledBlockingInitialNavigation()
+        ),
+
+        provideHttpClient(withFetch(), withInterceptors([authInterceptor])),
+
         provideZonelessChangeDetection(),
-        providePrimeNG({ theme: { preset: Aura, options: { darkModeSelector: '.app-dark' } } }),
-        provideHttpClient(withInterceptors([authInterceptor])),
+
+        providePrimeNG({
+            theme: {
+                preset: Aura,
+                options: {
+                    darkModeSelector: '.app-dark'
+                }
+            }
+        }),
+
         MessageService
     ]
 };

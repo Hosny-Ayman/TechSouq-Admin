@@ -3,12 +3,34 @@ import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { IDashboardParams } from '../../interfaces/IDashboardParams';
 import { baseUrl } from '../../apiRoot/baseUrl';
+import * as signalR from '@microsoft/signalr';
+import { MessagesService } from './messages.service';
 
 @Injectable({
     providedIn: 'root'
 })
 export class DashboardService {
     private _http = inject(HttpClient);
+
+    private _hubConnection: signalR.HubConnection | undefined;
+
+    private _message = inject(MessagesService);
+
+    public startConnection = () => {
+        this._hubConnection = new signalR.HubConnectionBuilder().withUrl('https://localhost:7180/notificationHub', { withCredentials: true }).withAutomaticReconnect().build();
+
+        this._hubConnection.start().catch((err) => {
+            this._message.showError('Connection Failed');
+        });
+    };
+
+    public addReceiveOrderListener = (callback: (notification: any) => void) => {
+        if (this._hubConnection) {
+            this._hubConnection.on('ReceiveNewOrder', (data) => {
+                callback(data);
+            });
+        }
+    };
 
     RecentSales(Dashboard: IDashboardParams): Observable<any> {
         let params: any = { PageNumber: Dashboard.PageNumber, PageSize: Dashboard.PageSize };
