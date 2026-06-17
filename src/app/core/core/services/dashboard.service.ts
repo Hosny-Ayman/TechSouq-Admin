@@ -19,9 +19,7 @@ export class DashboardService {
     public startConnection = () => {
         this._hubConnection = new signalR.HubConnectionBuilder().withUrl('https://localhost:7180/notificationHub', { withCredentials: true }).withAutomaticReconnect().build();
 
-        this._hubConnection.start().catch((err) => {
-            this._message.showError('Connection Failed');
-        });
+        this._hubConnection.start();
     };
 
     public addReceiveOrderListener = (callback: (notification: any) => void) => {

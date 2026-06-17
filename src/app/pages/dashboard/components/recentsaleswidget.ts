@@ -3,13 +3,13 @@ import { RippleModule } from 'primeng/ripple';
 import { TableModule, TableLazyLoadEvent } from 'primeng/table';
 import { ButtonModule } from 'primeng/button';
 import { CommonModule } from '@angular/common';
-import { Product, ProductService } from '@/app/pages/service/product.service';
 import { DashboardService } from '@/app/core/core/services/dashboard.service';
 import { LazyLoadEvent } from 'primeng/api';
 import { IDashboardParams } from '@/app/core/interfaces/IDashboardParams';
 import { UtilityService } from '@/app/core/core/services/utility.service';
 import { ImageInfo } from '@/app/core/interfaces/IImageInfo';
 import { RouterLink } from '@angular/router';
+import { ProductService } from '@/app/core/core/services/product.service';
 
 @Component({
     standalone: true,
