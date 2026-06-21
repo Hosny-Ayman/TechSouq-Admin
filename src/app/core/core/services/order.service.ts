@@ -2,8 +2,8 @@ import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { orderStatus } from '../enums/orderStatus';
 import { Observable } from 'rxjs';
-import { baseUrl } from '../../apiRoot/baseUrl';
 import { IOrderParams } from '../../interfaces/IOrderPrams';
+import { environment } from '@/environments/environment';
 
 @Injectable({
     providedIn: 'root'
@@ -29,18 +29,18 @@ export class OrderService {
             params.search = Order.search;
         }
 
-        return this._htpp.get(`${baseUrl}Orders/GetAllOrdersPaged`, { params: params });
+        return this._htpp.get(`${environment.apiUrl}Orders/GetAllOrdersPaged`, { params: params });
     }
 
     GetOrderDtailsAdmin(OrderId: number) {
         let params: any = { OrderId: OrderId };
 
-        return this._htpp.get(`${baseUrl}Orders/GetOrderDtailsAdmin`, { params: params });
+        return this._htpp.get(`${environment.apiUrl}Orders/GetOrderDtailsAdmin`, { params: params });
     }
 
     UpdateStatus(OrderId: number, Status: orderStatus) {
         let params: any = { OrderId: OrderId, Status: Status };
 
-        return this._htpp.put(`${baseUrl}Orders/UpdateStatus`, null, { params });
+        return this._htpp.put(`${environment.apiUrl}Orders/UpdateStatus`, null, { params });
     }
 }

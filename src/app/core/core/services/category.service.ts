@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { baseUrl } from '../../apiRoot/baseUrl';
+import { environment } from '@/environments/environment';
 
 @Injectable({
     providedIn: 'root'
@@ -10,23 +10,23 @@ export class CategoryService {
     private _http = inject(HttpClient);
 
     createCategory(category: any) {
-        return this._http.post(`${baseUrl}Categories/Create`, category);
+        return this._http.post(`${environment.apiUrl}Categories/Create`, category);
     }
 
     updateCategory(category: any) {
-        return this._http.put(`${baseUrl}Categories/Update`, category);
+        return this._http.put(`${environment.apiUrl}Categories/Update`, category);
     }
 
     deleteCategory(id: number) {
-        return this._http.delete(`${baseUrl}Categories/Delete?CategorieId=${id}`);
+        return this._http.delete(`${environment.apiUrl}Categories/Delete?CategorieId=${id}`);
     }
 
     GetAllCategorieForSelect(): Observable<any> {
-        return this._http.get(`${baseUrl}Categories/GetAllCategorieForSelect`);
+        return this._http.get(`${environment.apiUrl}Categories/GetAllCategorieForSelect`);
     }
 
     getAllCategoriesPaged(pageNumber: number, pageSize: number, RealTimeData: boolean = true) {
         const params: any = { PageNumber: pageNumber, PageSize: pageSize, RealTimeData: RealTimeData };
-        return this._http.get(`${baseUrl}Categories/GetAllCategoriesAsync`, { params: params });
+        return this._http.get(`${environment.apiUrl}Categories/GetAllCategoriesAsync`, { params: params });
     }
 }

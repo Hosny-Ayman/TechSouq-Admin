@@ -2,7 +2,7 @@ import { inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, tap } from 'rxjs';
 import { Router } from '@angular/router';
-import { baseUrl } from '../../apiRoot/baseUrl';
+import { environment } from '@/environments/environment';
 
 @Injectable({
     providedIn: 'root'
@@ -12,7 +12,7 @@ export class AuthService {
     private _router = inject(Router);
 
     loginAdmin(credentials: any): Observable<any> {
-        return this._http.post(`${baseUrl}Auth/LoginAdmin`, credentials).pipe(
+        return this._http.post(`${environment.apiUrl}Auth/LoginAdmin`, credentials).pipe(
             tap((response: any) => {
                 if (response && response.isSuccess) {
                     const { id, ...userDataWithoutId } = response.data;
@@ -23,11 +23,11 @@ export class AuthService {
     }
 
     RefreshToken(): Observable<any> {
-        return this._http.post(`${baseUrl}Auth/RefreshToken`, {});
+        return this._http.post(`${environment.apiUrl}Auth/RefreshToken`, {});
     }
 
     logout(): Observable<any> {
-        return this._http.post(`${baseUrl}Auth/Logout`, {}).pipe(
+        return this._http.post(`${environment.apiUrl}Auth/Logout`, {}).pipe(
             tap(() => {
                 this.clearAuthData();
             })

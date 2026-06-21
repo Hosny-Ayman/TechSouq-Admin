@@ -1,6 +1,6 @@
 import { inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { baseUrl } from '../../apiRoot/baseUrl';
+import { environment } from '@/environments/environment';
 
 @Injectable({
     providedIn: 'root'
@@ -10,23 +10,23 @@ export class CouponsAdminService {
 
     getAllPaged(pageNumber: number, pageSize: number, codeSearch: string = '') {
         let params: any = { pageNumber: pageNumber, pageSize: pageSize, CodeSearch: codeSearch };
-        return this._http.get(`${baseUrl}Coupons/GetAllCouponsPaged`, { params: params });
+        return this._http.get(`${environment.apiUrl}Coupons/GetAllCouponsPaged`, { params: params });
     }
 
     getCoupon(id: number) {
         let params: any = { id: id };
-        return this._http.get(`${baseUrl}Coupons/GetCouponById`, { params: params });
+        return this._http.get(`${environment.apiUrl}Coupons/GetCouponById`, { params: params });
     }
 
     addCoupon(coupon: any) {
-        return this._http.post(`${baseUrl}Coupons/Add`, coupon);
+        return this._http.post(`${environment.apiUrl}Coupons/Add`, coupon);
     }
 
     updateCoupon(coupon: any) {
-        return this._http.put(`${baseUrl}Coupons/Update`, coupon);
+        return this._http.put(`${environment.apiUrl}Coupons/Update`, coupon);
     }
 
     deleteCoupon(id: number) {
-        return this._http.delete(`${baseUrl}Coupons/Delete/${id}`);
+        return this._http.delete(`${environment.apiUrl}Coupons/Delete/${id}`);
     }
 }

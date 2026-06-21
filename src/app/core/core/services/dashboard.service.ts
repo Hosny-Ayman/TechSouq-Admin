@@ -2,9 +2,9 @@ import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { IDashboardParams } from '../../interfaces/IDashboardParams';
-import { baseUrl } from '../../apiRoot/baseUrl';
 import * as signalR from '@microsoft/signalr';
 import { MessagesService } from './messages.service';
+import { environment } from '@/environments/environment';
 
 @Injectable({
     providedIn: 'root'
@@ -40,18 +40,18 @@ export class DashboardService {
         if (Dashboard.SortOrder !== undefined && Dashboard.SortOrder !== null) {
             params.SortOrder = Dashboard.SortOrder;
         }
-        return this._http.get(`${baseUrl}Dashboard/RecentSales`, { params: params });
+        return this._http.get(`${environment.apiUrl}Dashboard/RecentSales`, { params: params });
     }
 
     ShowDashboardInfo(): Observable<any> {
-        return this._http.get(`${baseUrl}Dashboard/ShowDashboardInfo`);
+        return this._http.get(`${environment.apiUrl}Dashboard/ShowDashboardInfo`);
     }
 
     SalesLast7Days(): Observable<any> {
-        return this._http.get(`${baseUrl}Dashboard/SalesLast7Days`);
+        return this._http.get(`${environment.apiUrl}Dashboard/SalesLast7Days`);
     }
 
     BestSellingProducts(): Observable<any> {
-        return this._http.get(`${baseUrl}Dashboard/BestSellingProducts`);
+        return this._http.get(`${environment.apiUrl}Dashboard/BestSellingProducts`);
     }
 }

@@ -1,6 +1,6 @@
 import { inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { baseUrl } from '../../apiRoot/baseUrl';
+import { environment } from '@/environments/environment';
 
 @Injectable({
     providedIn: 'root'
@@ -10,19 +10,19 @@ export class DeliveryZonesService {
 
     getAllPaged(pageNumber: number, pageSize: number, nameSearch: string = '') {
         let params: any = { pageNumber: pageNumber, pageSize: pageSize, NameSearch: nameSearch };
-        return this._http.get(`${baseUrl}DeliveryZones/GetAllDeliveryZonesPaged`, { params: params });
+        return this._http.get(`${environment.apiUrl}DeliveryZones/GetAllDeliveryZonesPaged`, { params: params });
     }
 
     addZone(zone: any) {
-        return this._http.post(`${baseUrl}DeliveryZones`, zone);
+        return this._http.post(`${environment.apiUrl}DeliveryZones`, zone);
     }
 
     updateZone(zone: any) {
-        return this._http.put(`${baseUrl}DeliveryZones/UpdateDeliveryZone`, zone);
+        return this._http.put(`${environment.apiUrl}DeliveryZones/UpdateDeliveryZone`, zone);
     }
 
     deleteZone(id: number) {
         let params: any = { DeliveryZoneId: id };
-        return this._http.delete(`${baseUrl}DeliveryZones/DeleteDeliveryZone`, { params: params });
+        return this._http.delete(`${environment.apiUrl}DeliveryZones/DeleteDeliveryZone`, { params: params });
     }
 }
