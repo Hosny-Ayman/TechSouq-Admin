@@ -2,6 +2,11 @@
 
 A highly optimized, modern, and secure admin control panel for the TechSouq E-commerce platform. Built with cutting-edge **Angular 21** and **PrimeNG**, this dashboard provides administrators with real-time insights, comprehensive catalog management, and seamless order processing capabilities.
 
+🔐 **Live Demo Access:**
+To explore the admin features, you can use the following demo credentials:
+* **Email:** `demo@techsouq.com` 
+* **Password:** `Demo123!`
+*(Note: This is a shared live environment. Feel free to add products or process orders, but please avoid deleting core catalog items).*
 🚀 **Live Dashboard:** [tech-souq-dashboard.vercel.app](https://tech-souq-dashboard.vercel.app/)
 
 ## 📸 System Previews
