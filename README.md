@@ -1,49 +1,61 @@
-# TechSouq Backend API 🛒
+# TechSouq Admin Dashboard 📊
 
-A robust, highly scalable, and enterprise-grade secure e-commerce RESTful API built with **.NET 8** following **Clean Architecture** principles. This backend powers the TechSouq client store and the admin dashboard, providing secure payments, real-time notifications, and high-performance data delivery.
+A highly optimized, modern, and secure admin control panel for the TechSouq E-commerce platform. Built with cutting-edge **Angular 21** and **PrimeNG**, this dashboard provides administrators with real-time insights, comprehensive catalog management, and seamless order processing capabilities.
 
-🚀 **Live API / Swagger:** [teckseq-api.runasp.net/swagger](https://teckseq-api.runasp.net/swagger/index.html)
+🚀 **Live Dashboard:** [tech-souq-dashboard.vercel.app](https://tech-souq-dashboard.vercel.app/)
 
-## 🏗️ Architecture & Performance Optimization
-* **Clean Architecture:** Strictly separated layers (Domain, Application, Infrastructure, API) to ensure decoupling, maintainability, and testing readiness.
-* **Separation of Read/Write (CQRS-Lite):** Distinct interfaces for Queries (Reads) and Repositories (Writes) to optimize database interactions.
-* **Data Structures Efficiency:** Strategic use of `Dictionary<TKey, TValue>` in complex operations (like `AddCartItems`) to achieve **O(1) time complexity** for lookups and manipulation, significantly reducing execution time.
-* **Pagination & Data Shaping:** Implemented server-side pagination for all heavy endpoints (Products, Orders, Reviews) to minimize payload size, reduce DB load, and guarantee fast client rendering.
-* **DTOs & AutoMapper:** Decoupling database models from API contracts to protect internal data structures.
+## 📸 System Previews
 
-## 🔐 Security, User Management & Validation
-* **Authentication & Authorization:** JWT (JSON Web Tokens) with Role-Based Access Control (Admin vs. Customer) + **Google OAuth 2.0 Integration**.
-* **Secure Cookie Transmission:** Tokens and sensitive state data are transmitted using **HttpOnly, Secure, and SameSite Cookies** to prevent XSS (Cross-Site Scripting) and CSRF attacks.
-* **Resource Owner Authorization (IDOR Prevention):** Custom authorization handlers protecting endpoints, ensuring users can strictly access or modify only their personal data.
-* **Restrictive CORS Policy:** API is securely locked down to accept requests *only* from predefined and trusted frontend origins (Vercel deployments), blocking unauthorized cross-origin requests.
-* **Password Hashing:** Fully encrypted credentials using highly secure **BCrypt**.
-* **Rate Limiting:** Custom IP-based rate limiting policies built into the pipeline to guard against DDoS, brute-force attacks, and spam.
-* **Automatic Request Validation:** Integrated **FluentValidation** pipeline acting as a barrier to validate payloads before executing action methods.
+*(Place your screenshots here by replacing the paths once uploaded)*
+![Dashboard & Analytics](./docs/dashboard.png)
+![Product Management & Rich Text](./docs/add-product.png)
+![Order Details & Invoice](./docs/order-details.png)
 
-## 🛠️ Core Tech Stack & Integrations
+## 🏗️ Architecture & Modern Angular Features
+* **Zoneless Change Detection:** Configured with `provideZonelessChangeDetection()` for maximum performance and reduced bundle size (No `zone.js` dependency).
+* **Standalone Components:** Fully utilizing the modern Angular Standalone architecture without `NgModules`.
+* **Optimized HTTP Client:** Configured with `withFetch()` for native fetch API utilization, improving request performance.
+* **Smart UI Foundation:** Built upon a heavily customized version of the PrimeNG **Sakai** template, adapted with the modern **Aura Theme** and fully responsive design (with Dark/Light mode toggle).
 
-* **Framework:** .NET 8 / ASP.NET Core RESTful Web API
-* **Database & ORM:** SQL Server, Entity Framework Core (with automated migrations execution on startup).
-* **Caching Layer:** Redis Distributed Cache (`StackExchange.Redis`) for lightning-fast catalog retrieval.
-* **Real-time Engine:** SignalR WebSockets providing instantaneous order updates.
-* **Background Processing:** Hangfire executing daily scheduled Cron jobs for automated cleanup of expired coupons/discounts.
-* **Payment Gateway:** Native Stripe Integration handling secure Payment Intents and verifying Stripe Signatures via Webhooks.
-* **Media Management:** Cloudinary API integration for seamless multi-image cloud galleries storage.
-* **Telemetry & Cloud Logging:** Serilog streaming logs live to **BetterStack Telemetry** for real-time monitoring.
+## 🔐 Security & State Management
+* **Role-Based Route Guards:** Implemented strict `CanActivateFn` (AdminGuard) to protect routes, validating JWT tokens and checking `roleId` directly from secure local state before allowing navigation.
+* **HTTP Interceptors:** Custom `authInterceptor` that seamlessly attaches secure HttpOnly credentials and auth tokens to every outgoing API request.
+* **SignalR WebSockets:** Established a persistent WebSocket connection to the backend to receive **Live Notifications** (e.g., "New Order Placed") instantly without manual page refreshes.
 
-## ✨ Advanced Engineering Features
+## ✨ Comprehensive Modules & Features
 
-* **Smart Transactional Media Rollback:** Logic that intercepts runtime data faults and automatically purges newly uploaded images from Cloudinary/Disk if the database transaction fails.
-* **Hybrid Storage Architecture:** Hot-swappable file system logic that can alternate dynamically between **Cloudinary Storage** and **Local File System Hosting** (`wwwroot/ProductImages`).
-* **Optimized E-Commerce Engine:** Complex conditional coupon validation, dynamic delivery zone cost calculations, and secure password recovery flow via SMTP.
+### 📈 1. Analytics & Real-Time Monitoring
+* Interactive **Chart.js** graphs for weekly sales and revenue tracking.
+* Best-selling products progress bars and out-of-stock alerts.
+* Live WebSocket-powered activity feed for incoming orders.
+
+### 📦 2. Catalog & Inventory Management
+* **Products:** Complex, reactive dynamic forms for creating/editing products with **Quill Editor** for rich text descriptions.
+* **Media Uploads:** Dual-image upload system (Main Image + Gallery) interacting seamlessly with Cloudinary API.
+* **Categories & Brands:** Full CRUD operations with visual UI grids and icon mapping.
+
+### 🛒 3. Order Processing Center
+* Detailed data tables featuring server-side pagination, sorting, and status toggles.
+* Deep-dive views into customer shipping details, comprehensive invoice summaries, and ordered items tracking.
+
+### 🎁 4. Marketing & System Settings
+* **Coupons Management:** Configure dynamic discount rules (Percentage vs. Fixed Amount), usage limits, and expiration dates.
+* **Delivery Zones:** Manage dynamic shipping costs per city/region.
+* **System Settings:** Control global application flags like dynamic Free Shipping thresholds.
+* **Customer Base:** View and manage registered user profiles and access levels.
+
+## 🛠️ Core Tech Stack
+
+* **Framework:** Angular v21
+* **UI Component Library:** PrimeNG v21 (Aura Theme)
+* **Styling & CSS:** Tailwind CSS v4 + PrimeUI Tailwind plugin.
+* **Real-time Engine:** `@microsoft/signalr` v10 for live WebSockets.
+* **Data Visualization:** Chart.js
+* **Rich Text Editing:** Quill Editor
 
 ## ⚙️ How to Run Locally
 
-1. Clone the repository: `git clone https://github.com/Hosny-Ayman/TechSouq-Backend.git`
-2. Update `appsettings.json` with your private keys:
-   * SQL Server & Redis Connection Strings
-   * Stripe API Keys & Webhook Secret
-   * Cloudinary Configs & SMTP Credentials
-   * JWT Secret Key & Google Client ID
-3. Apply Entity Framework Migrations: `dotnet ef database update`
-4. Run the application: `dotnet run`
+1. Clone the repository: `git clone https://github.com/YOUR_USERNAME/TechSouq-Admin.git`
+2. Install dependencies: `npm install`
+3. Configure Environment variables: Ensure your `environment.ts` points to the local or live .NET API URL.
+4. Start the development server: `npm start` (Runs on port 4201 by default).
