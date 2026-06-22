@@ -88,7 +88,7 @@ export class Login implements OnInit {
             rememberMe: [false]
         });
 
-        this._systemSettings.GetSystemSettingByKey('AdminLoginLogo').subscribe({
+        this._systemSettings.GetSystemSettingByKey('SiteLogo').subscribe({
             next: (req: any) => {
                 this.Logo = req.data.settingValue;
                 this._cdr.detectChanges();
@@ -126,6 +126,6 @@ export class Login implements OnInit {
     }
 
     getLogo(): string {
-        return 'https://localhost:7180/SiteImages/' + this.Logo;
+        return this.Logo;
     }
 }
