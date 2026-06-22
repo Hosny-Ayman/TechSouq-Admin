@@ -55,7 +55,7 @@ A highly optimized, modern, and secure admin control panel for the TechSouq E-co
 
 ## ⚙️ How to Run Locally
 
-1. Clone the repository: `git clone https://github.com/YOUR_USERNAME/TechSouq-Admin.git`
+1. Clone the repository: `git clone https://github.com/Hosny-Ayman/TechSouq-Admin.git`
 2. Install dependencies: `npm install`
 3. Configure Environment variables: Ensure your `environment.ts` points to the local or live .NET API URL.
 4. Start the development server: `npm start` (Runs on port 4201 by default).
