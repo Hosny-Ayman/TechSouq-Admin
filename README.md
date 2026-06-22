@@ -1,45 +1,49 @@
 # TechSouq Backend API 🛒
 
-A robust, highly scalable e-commerce RESTful API built with **.NET 8** following **Clean Architecture** principles. This backend powers the TechSouq client store and the admin dashboard, providing secure payments, real-time notifications, and high-performance data delivery.
+A robust, highly scalable, and enterprise-grade secure e-commerce RESTful API built with **.NET 8** following **Clean Architecture** principles. This backend powers the TechSouq client store and the admin dashboard, providing secure payments, real-time notifications, and high-performance data delivery.
 
 🚀 **Live API / Swagger:** [teckseq-api.runasp.net/swagger](https://teckseq-api.runasp.net/swagger/index.html)
 
-## 🛠️ Tech Stack & Technologies Used
+## 🏗️ Architecture & Performance Optimization
+* **Clean Architecture:** Strictly separated layers (Domain, Application, Infrastructure, API) to ensure decoupling, maintainability, and testing readiness.
+* **Separation of Read/Write (CQRS-Lite):** Distinct interfaces for Queries (Reads) and Repositories (Writes) to optimize database interactions.
+* **Data Structures Efficiency:** Strategic use of `Dictionary<TKey, TValue>` in complex operations (like `AddCartItems`) to achieve **O(1) time complexity** for lookups and manipulation, significantly reducing execution time.
+* **Pagination & Data Shaping:** Implemented server-side pagination for all heavy endpoints (Products, Orders, Reviews) to minimize payload size, reduce DB load, and guarantee fast client rendering.
+* **DTOs & AutoMapper:** Decoupling database models from API contracts to protect internal data structures.
 
-* **Framework:** .NET 8 / ASP.NET Core Web API
-* **Architecture:** Clean Architecture (Domain, Application, Infrastructure, API)
-* **Database & ORM:** SQL Server, Entity Framework Core
-* **Caching:** Redis (StackExchange.Redis) for high-speed product/category retrieval.
-* **Real-time Communication:** SignalR (Live notifications for new orders/events).
-* **Background Jobs:** Hangfire (Automated daily cleanup for expired coupons and discounts).
-* **Payment Gateway:** Stripe Integration (Payment Intents & Webhooks).
-* **Media Management:** Cloudinary API (Handling product images upload and storage).
-* **Logging & Monitoring:** Serilog connected to BetterStack for real-time cloud log streaming.
-* **Authentication & Security:** JWT (JSON Web Tokens) with Role-Based Authorization, Global Exception Handling Middleware.
+## 🔐 Security, User Management & Validation
+* **Authentication & Authorization:** JWT (JSON Web Tokens) with Role-Based Access Control (Admin vs. Customer) + **Google OAuth 2.0 Integration**.
+* **Secure Cookie Transmission:** Tokens and sensitive state data are transmitted using **HttpOnly, Secure, and SameSite Cookies** to prevent XSS (Cross-Site Scripting) and CSRF attacks.
+* **Resource Owner Authorization (IDOR Prevention):** Custom authorization handlers protecting endpoints, ensuring users can strictly access or modify only their personal data.
+* **Restrictive CORS Policy:** API is securely locked down to accept requests *only* from predefined and trusted frontend origins (Vercel deployments), blocking unauthorized cross-origin requests.
+* **Password Hashing:** Fully encrypted credentials using highly secure **BCrypt**.
+* **Rate Limiting:** Custom IP-based rate limiting policies built into the pipeline to guard against DDoS, brute-force attacks, and spam.
+* **Automatic Request Validation:** Integrated **FluentValidation** pipeline acting as a barrier to validate payloads before executing action methods.
 
-## ✨ Key Features
+## 🛠️ Core Tech Stack & Integrations
 
-* **Advanced Product Management:** Full CRUD with image gallery uploads (Cloudinary), stock tracking, and automated discount expiration.
-* **Optimized Queries:** Paged responses and Redis caching to handle large catalogs with zero lag.
-* **Cart & Checkout Flow:** Secure cart management transitioning into automated Stripe payment sessions.
-* **Event-Driven Actions:** SignalR pushes immediate notifications to the Admin Dashboard upon successful checkouts.
-* **Background Processing:** Hangfire runs scheduled tasks (Cron jobs) efficiently without blocking the main thread.
+* **Framework:** .NET 8 / ASP.NET Core RESTful Web API
+* **Database & ORM:** SQL Server, Entity Framework Core (with automated migrations execution on startup).
+* **Caching Layer:** Redis Distributed Cache (`StackExchange.Redis`) for lightning-fast catalog retrieval.
+* **Real-time Engine:** SignalR WebSockets providing instantaneous order updates.
+* **Background Processing:** Hangfire executing daily scheduled Cron jobs for automated cleanup of expired coupons/discounts.
+* **Payment Gateway:** Native Stripe Integration handling secure Payment Intents and verifying Stripe Signatures via Webhooks.
+* **Media Management:** Cloudinary API integration for seamless multi-image cloud galleries storage.
+* **Telemetry & Cloud Logging:** Serilog streaming logs live to **BetterStack Telemetry** for real-time monitoring.
 
-## 🏗️ Clean Architecture Layers
+## ✨ Advanced Engineering Features
 
-1. **Domain:** Contains Enterprise logic, Entities, Enums, and Repository Interfaces.
-2. **Application:** Business logic, Services, DTOs, Mapping (AutoMapper), and CQRS patterns.
-3. **Infrastructure:** Data Access (EF Core), DbContext, external integrations (Stripe, Cloudinary, Redis).
-4. **API:** Controllers, Middlewares, SignalR Hubs, and Dependency Injection setups.
+* **Smart Transactional Media Rollback:** Logic that intercepts runtime data faults and automatically purges newly uploaded images from Cloudinary/Disk if the database transaction fails.
+* **Hybrid Storage Architecture:** Hot-swappable file system logic that can alternate dynamically between **Cloudinary Storage** and **Local File System Hosting** (`wwwroot/ProductImages`).
+* **Optimized E-Commerce Engine:** Complex conditional coupon validation, dynamic delivery zone cost calculations, and secure password recovery flow via SMTP.
 
 ## ⚙️ How to Run Locally
 
-1. Clone the repository: `git clone https://github.com/YOUR_USERNAME/TechSouq-Backend.git`
-2. Update `appsettings.json` with your credentials:
-   * SQL Server Connection String
-   * Redis Connection String
+1. Clone the repository: `git clone https://github.com/Hosny-Ayman/TechSouq-Backend.git`
+2. Update `appsettings.json` with your private keys:
+   * SQL Server & Redis Connection Strings
    * Stripe API Keys & Webhook Secret
-   * Cloudinary Keys
-   * JWT Secret Key
+   * Cloudinary Configs & SMTP Credentials
+   * JWT Secret Key & Google Client ID
 3. Apply Entity Framework Migrations: `dotnet ef database update`
 4. Run the application: `dotnet run`
