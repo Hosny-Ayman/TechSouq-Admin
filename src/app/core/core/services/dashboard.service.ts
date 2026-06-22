@@ -17,7 +17,7 @@ export class DashboardService {
     private _message = inject(MessagesService);
 
     public startConnection = () => {
-        this._hubConnection = new signalR.HubConnectionBuilder().withUrl('https://localhost:7180/notificationHub', { withCredentials: true }).withAutomaticReconnect().build();
+        this._hubConnection = new signalR.HubConnectionBuilder().withUrl('https://teckseq-api.runasp.net/notificationHub', { withCredentials: true }).withAutomaticReconnect().build();
 
         this._hubConnection.start();
     };
